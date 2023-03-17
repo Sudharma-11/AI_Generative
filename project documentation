@@ -1,6 +1,7 @@
 Generative AI 
 
 Generative AI for Avatar Faces :
+This type of model is used to develop doppelgangers which are used as characters in the gaming field.
 This Artificial Intelligence model generates avatar faces using a custom stable diffusion model. 
 Tools and Library :
 Google Colab.
