@@ -166,7 +166,7 @@ if not os.path.exists('images'):
 
 @app.route("/test")
 def test():
-  return "Vanakam"
+  return "Test is successful"
 
 @app.route("/avatar-face")
 def generateImage():
