@@ -1,6 +1,4 @@
-## Install Requirements
-
-# Commented out IPython magic to ensure Python compatibility.
+#Install Requirements
 !wget -q https://github.com/ShivamShrirao/diffusers/raw/main/examples/dreambooth/train_dreambooth.py
 !wget -q https://github.com/ShivamShrirao/diffusers/raw/main/scripts/convert_diffusers_to_original_stable_diffusion.py
 # %pip install -qq git+https://github.com/ShivamShrirao/diffusers
@@ -15,8 +13,7 @@
 HUGGINGFACE_TOKEN = "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"
 !echo -n "{HUGGINGFACE_TOKEN}" > ~/.huggingface/token
 
-## Settings and run
-
+# Settings and run
 save_to_gdrive = True 
 if save_to_gdrive:
     from google.colab import drive
@@ -75,10 +72,10 @@ for c in concepts_list:
   --gradient_accumulation_steps=1 \
   --learning_rate=1e-6 \
   --lr_scheduler="constant" \
-  --lr_warmup_steps=168 \
-  --num_class_images=252 \
+  --lr_warmup_steps=168 \ # lr_warmup_steps = int(max_train_steps / 10)
+  --num_class_images=252 \ # num_class_images = num_instance_images * 12
   --sample_batch_size=4 \
-  --max_train_steps=1680 \
+  --max_train_steps=1680 \ # max_train_steps = num_instance_images * 80
   --save_interval=10000 \ # Reduce the `--save_interval` to lower than `--max_train_steps` to save weights from intermediate steps.
   --save_sample_prompt="cxyz" \ # `--save_sample_prompt` can be same as `--instance_prompt` to generate intermediate samples (saved along with weights in samples directory).
   --concepts_list="concepts_list.json"
@@ -124,13 +121,9 @@ for i, folder in enumerate(folders):
 plt.tight_layout()
 plt.savefig('grid.png', dpi=72)
 
-!./ngrok authtoken 2N8CgXpCOPUYLXNVNIy6KNCV5nD_3Z735wg5PANop9cKoxyYN
+!./ngrok authtoken 2N8CgXpCOPUYLXNVNIy6KNCV5nD_3Z735wg5PANop9cKoxyYN # ngrok authtoken
 
-"""## Convert weights to ckpt to use in web UIs like AUTOMATIC1111.
-
-## Inference
-"""
-
+# Inference
 import torch
 !pip install flask_ngrok
 from torch import autocast
