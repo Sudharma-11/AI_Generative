@@ -38,7 +38,7 @@ concepts_list = [
         "instance_prompt": "cxyz",
         "class_prompt": "human image",
         "instance_data_dir": "/content/drive/MyDrive/myimage",
-        "class_data_dir": "/content/drive/MyDrive/human pics"
+        "class_data_dir": "/content/drive/MyDrive/human pics"  # `class_data_dir` contains regularization images
     }
  ]
 import json
@@ -79,8 +79,8 @@ for c in concepts_list:
   --num_class_images=252 \
   --sample_batch_size=4 \
   --max_train_steps=1680 \
-  --save_interval=10000 \
-  --save_sample_prompt="cxyz" \
+  --save_interval=10000 \ # Reduce the `--save_interval` to lower than `--max_train_steps` to save weights from intermediate steps.
+  --save_sample_prompt="cxyz" \ # `--save_sample_prompt` can be same as `--instance_prompt` to generate intermediate samples (saved along with weights in samples directory).
   --concepts_list="concepts_list.json"
 
 WEIGHTS_DIR = "" 
@@ -139,7 +139,7 @@ from IPython.display import display
 from flask import Flask
 
 app = Flask(__name__)
-model_path = WEIGHTS_DIR       
+model_path = WEIGHTS_DIR  # If you want to use previously trained model saved in gdrive, replace this with the full path of model in gdrive     
 pipe = StableDiffusionPipeline.from_pretrained(model_path, safety_checker=None, torch_dtype=torch.float16).to("cuda")
 pipe.scheduler = DDIMScheduler.from_config(pipe.scheduler.config)
 pipe.enable_xformers_memory_efficient_attention()
@@ -164,7 +164,7 @@ run_with_ngrok(app)
 if not os.path.exists('images'):
     os.makedirs('images')
 
-@app.route("/test")
+@app.route("/test") # for testing the api 
 def test():
   return "Test is successful"
 
