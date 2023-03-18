@@ -80,8 +80,8 @@ for c in concepts_list:
   --save_sample_prompt="cxyz" \ # `--save_sample_prompt` can be same as `--instance_prompt` to generate intermediate samples (saved along with weights in samples directory).
   --concepts_list="concepts_list.json"
 
-WEIGHTS_DIR = "" 
-if WEIGHTS_DIR == "":
+WEIGHTS_DIR = "stable_diffusion_weights/cxyz" # file path of OUTPUT_DIR
+if WEIGHTS_DIR == "stable_diffusion_weights/cxyz":
     from natsort import natsorted
     from glob import glob
     import os
